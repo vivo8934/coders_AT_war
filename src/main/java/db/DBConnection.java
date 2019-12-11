@@ -11,7 +11,7 @@ public class DBConnection implements UserInterface {
 
     private  String name;
     String code_wars_username;
-
+//
     //database connection
     Connection conn;
 
