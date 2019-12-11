@@ -6,27 +6,23 @@ public class User implements Serializable {
 
 
     private String fullname;
-    private String codewarsUserName;
+    private String codewarsusername;
 
-    public User(String fullname, String codewarsUserName){
+    public User(String fullname, String codewarsusername){
+
+        System.out.println(fullname + " " + codewarsusername);
+
         this.fullname = fullname;
-        this.codewarsUserName = codewarsUserName;
+        this.codewarsusername = codewarsusername;
     }
 
     public String getFullname() {
-        return fullname;
+        return this.fullname;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
-
-    public void setCodewarsUserName(String codewarsUserName) {
-        this.codewarsUserName = codewarsUserName;
-    }
 
     public String getCodewarsUserName() {
-        return codewarsUserName;
+        return this.codewarsusername;
     }
 
 }

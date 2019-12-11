@@ -10,13 +10,13 @@ import java.util.List;
 public class DBConnection implements UserInterface {
 
     private  String name;
-    String code_wars_username;
+    private String code_wars_username;
 //
     //database connection
     Connection conn;
 
-    final String INSERT_STUDENT  =   "INSERT INTO users(fullname, ccodewarsusername) VALUES(?, ?)";
-    final String CHECK_USER =        " SELECT codewarsusername FROM users WHERE codewarsusersname = ?";
+    final String INSERT_STUDENT  =   "INSERT INTO users(fullname, codewarsusername) VALUES(?, ?)";
+    final String CHECK_USER =        "SELECT * FROM users WHERE codewarsusername = ?";
     final String GET_SINGLE_USER =   "SELECT codewarsusername FROM users";
     final String  GET_CODEWAREUSER = "SELECT codewarsusername FROM user WHERE codewarsusername = ?";
     final String GET_ALL_USERS =     "SELECT * FROM users";
@@ -45,19 +45,19 @@ public class DBConnection implements UserInterface {
     }
 
     @Override
-    public String addUsers(String fullname, String codewarUserName) {
+    public  void addUsers(String fullname, String codewarsusername) {
 
-        if (!fullname.isEmpty() && !codewarUserName.isEmpty()){
+        if (!fullname.isEmpty()){
             this.name = fullname;
-            this.code_wars_username = codewarUserName;
+            this.code_wars_username = codewarsusername;
         }
 
         try {
             insert_user = conn.prepareStatement(INSERT_STUDENT);
             //prepared statements
             check_users = conn.prepareStatement(CHECK_USER);
-            check_users.setString(1, this.code_wars_username);
 
+            check_users.setString(1, this.code_wars_username);
             ResultSet rs = check_users.executeQuery();
 
             //if user doen't exists add user
@@ -71,7 +71,7 @@ public class DBConnection implements UserInterface {
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
-        return fullname;
+//        return fullname ;
     }
 
 

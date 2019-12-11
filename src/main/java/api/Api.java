@@ -16,17 +16,18 @@ public class Api {
 
 
 
-   public Route addUsers(){
+   public Route addUser(){
         return (req, res) ->{
             res.type("application/json");
+            System.out.println(req.body());
 
             User userInputs = new Gson().fromJson(req.body(), User.class);
 
-            String add = user.addUsers(userInputs.getFullname(),  userInputs.getCodewarsUserName());
+             user.addUsers(userInputs.getFullname(),  userInputs.getCodewarsUserName());
 
-            return null;
+
+            return new Gson().toJson(new User(userInputs.getFullname(), userInputs.getCodewarsUserName()));
         };
-
     }
 
     public Route getSingleUser(){
@@ -43,8 +44,6 @@ public class Api {
 
         return (req, res) -> user.getUsersByCodewarUsername();
     }
-
-
 
 
 }
