@@ -1,7 +1,9 @@
 package main;
+import api.Api;
 import db.DBConnection;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
+import transformer.JsonTransformer;
 import users.User;
 
 import java.io.BufferedReader;
@@ -19,11 +21,11 @@ public class App {
 
         DBConnection connection = new DBConnection();
 
-        List<String> user = connection.getSingleUser();
-        for (String code_wars_names: user){
+//        List<String> user = connection.getSingleUser();
+//        for (String code_wars_names: user){
 
             try {
-             URL url = new URL("https://www.codewars.com/api/v1/users/"+code_wars_names);
+             URL url = new URL("https://www.codewars.com/api/v1/users/Theophelus");
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
@@ -54,7 +56,7 @@ public class App {
                 e.printStackTrace();
             }
 
-        }
+//        }
 
     }
     static int getHerokuAssignedPort() {
@@ -91,56 +93,20 @@ public class App {
 
     public static void main(String[] args) {
 
+        DBConnection db = new DBConnection();
+        Api api = new Api(db);
 
         staticFiles.location("/public");
-
-        DBConnection db = new DBConnection();
 
         try {
 
             getCodewars();
 
-//            get("https://www.codewars.com/api/v1/users/Theophelus", api);
+            get("/api/codewars/users/:users", api.getSingleUser(), new JsonTransformer());
 
-            //Add users in the database
-            get("/api/codewars/users/:username", (req, res)->{
+            post("/api/codewars/users/add", api.addUsers(), new JsonTransformer());
 
-                return null;
-            }, new HandlebarsTemplateEngine());
-
-
-
-            get("/api/codewars/users", (req, res)->{
-
-                Map<String, Object> addUsers = new HashMap<>();
-
-                addUsers.put("username", db.getUsers());
-
-                return new ModelAndView(addUsers, "index.hbs");
-            }, new HandlebarsTemplateEngine());
-
-
-//            get("/api/codewars/users:users", (req, res) -> {}, new HandlebarsTemplateEngine());
-
-//            System.out.println(e.getMessage());
-
-            post("/api/codewars/users/", (req, res)->{
-                //get from values
-                String fullname = req.queryParams("fullname");
-                String code_wars_username = req.queryParams("code_wars_username");
-
-                Map<String, String> addUsers = new HashMap<>();
-
-                String add = db.addUsers(fullname, code_wars_username);
-
-                addUsers.put("usename", add);
-
-                return new ModelAndView(addUsers, "index.hbs");
-
-            }, new HandlebarsTemplateEngine());
-
-
-//            get("/api/codewars/users:users", (req, res) -> {}, new HandlebarsTemplateEngine());
+            get("/api/codewars/users/getAllUsers", api.getAllUsers(), new JsonTransformer());
 
 
         }catch (Exception e){

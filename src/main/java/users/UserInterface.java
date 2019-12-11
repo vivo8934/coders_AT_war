@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface UserInterface {
 
-    List<User> getUsers();
+    String getSingleUser(String codewarUsername);
     String addUsers(String fullname, String code_wars_username);
-    List<String> getSingleUser();
+    List<String> getUsersByCodewarUsername();
 
 }
