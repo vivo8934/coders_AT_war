@@ -99,14 +99,17 @@ public class DBConnection implements UserInterface {
             get_single_user = conn.prepareStatement(GET_SINGLE_USER);
 //            get_single_user.setString(1, codewarsusername);
             ResultSet rs = get_single_user.executeQuery();
+            System.out.println(rs.toString());
             //if user exists get its code wars user name
-            while (rs.next()) { storeUsername.add(rs.getString("codewarsusername"));}
 
+            while (rs.next()) {
+//                System.out.println(rs.getString("codewarsusername"));
+                storeUsername.add(rs.getString("codewarsusername"));}
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }
+
         System.out.println(storeUsername);
-//        String username;
         return storeUsername;
     }
 

@@ -40,6 +40,7 @@ public class Api {
     }
 
    public Route getAllUsers(){
+
         return (req, res) -> user.getUsersByCodewarUsername();
     }
 

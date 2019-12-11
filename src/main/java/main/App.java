@@ -100,14 +100,15 @@ public class App {
 
         try {
 
-            getCodewars();
+//            getCodewars();
 
-            get("/api/codewars/users/:users", api.getSingleUser(), new JsonTransformer());
+//            get("/api/codewars/users/:users", api.getSingleUser(), new JsonTransformer());
 
-            post("/api/codewars/users/add", api.addUsers(), new JsonTransformer());
+//            post("/api/codewars/users/add", api.addUsers(), new JsonTransformer());
 
+
+//            System.out.println(api.getAllUsers().toString());
             get("/api/codewars/users/getAllUsers", api.getAllUsers(), new JsonTransformer());
-
 
         }catch (Exception e){
             System.out.println(e.getMessage());
